@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).style.backgroundImage = `url('${selectedCard.image}')`;
     document.querySelector(".detail-title").textContent = selectedCard.title;
     document.querySelector(".markdown-content").innerHTML = marked.parse(
-      selectedCard.desc
+      selectedCard.markdown
     );
   } else {
     document.querySelector(".detail-card").innerHTML = `
