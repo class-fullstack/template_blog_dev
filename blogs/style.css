@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  margin: 60px 0;
+  color: #0d0c0c;
+  background: url(https://animal-crossing.com/assets/img/patterns/footer-dots.png) #dd7f20;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  transition: all 300ms ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.card__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 32px 32px;
+  padding: 0 20px;
+}
+
+.card__cover {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+
+.card__tag {
+  background: #dd2020;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.card__body {
+  padding: 20px;
+}
+
+.card__title {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card__desc {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #858484;
+  line-height: 1.6;
+}
+
+.card__cover--one {
+  background-image: url(https://cdn.dribbble.com/users/250235/screenshots/7885863/media/b2a6d5fb3c27de51d1c0c424296460ba.png);
+}
+
+.card__cover--two {
+  background-image: url(https://cdn.dribbble.com/users/769121/screenshots/11112077/media/1445dc22a15c2590ac332fc20abaf2df.jpg);
+}
+
+.card__cover--three {
+  background-image: url(https://cdn.dribbble.com/users/772985/screenshots/6034403/link_4x.png?compress=1&resize=1200x900);
+}
+
+#huck {
+  max-width: 80px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .card__container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+
+  .card__cover {
+    height: 200px;
+  }
+
+  .card__title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    margin: 30px 0;
+  }
+
+  .card__container {
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    padding: 0 15px;
+  }
+
+  .card__cover {
+    height: 180px;
+  }
+
+  .card__tag {
+    left: 15px;
+    font-size: 12px;
+  }
+
+  .card__body {
+    padding: 15px;
+  }
+
+  .card__title {
+    font-size: 18px;
+  }
+
+  .card__desc {
+    font-size: 14px;
+  }
+
+  #huck {
+    max-width: 60px;
+  }
+}
+
+/* Add touch optimization */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+  }
+}
