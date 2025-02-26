@@ -85,6 +85,47 @@ body {
   background-image: url(https://cdn.dribbble.com/users/772985/screenshots/6034403/link_4x.png?compress=1&resize=1200x900);
 }
 
+/* Time display style */
+.card__time {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.card__time::before {
+  content: '🕒';
+  filter: grayscale(0.8);
+  font-size: 14px;
+}
+
+
+/* Thêm hiệu ứng cho tag và time */
+.card__tag {
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.card__time {
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.card:hover .card__tag,
+.card:hover .card__time {
+  transform: scale(1.05);
+}
+
+
 #huck {
   max-width: 80px;
   position: fixed;
@@ -104,6 +145,12 @@ body {
 
   .card__title {
     font-size: 20px;
+  }
+
+  .card__time {
+    font-size: 11px;
+    padding: 3px 8px;
+    right: 10px;
   }
 }
 
@@ -137,6 +184,12 @@ body {
 
   .card__desc {
     font-size: 14px;
+  }
+
+  .card__time {
+    font-size: 10px;
+    bottom: 8px;
+    right: 8px;
   }
 
   #huck {
@@ -192,64 +245,120 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   overflow: hidden;
+  position: relative;
 }
 
-.skeleton-cover,
-.skeleton-tag,
-.skeleton-title,
-.skeleton-desc {
+/* Phần cover */
+.skeleton-cover {
+  height: 200px;
   position: relative;
   background: #f0f0f0;
   overflow: hidden;
 }
 
-/* Kích thước từng phần */
-.skeleton-cover {
-  height: 200px;
-}
-
+/* Phần body */
 .skeleton-body {
   padding: 15px;
 }
 
+/* Các phần tử skeleton chung */
+.skeleton-tag,
+.skeleton-title,
+.skeleton-desc,
+.skeleton-time {
+  position: relative;
+  background: #f0f0f0;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+/* Kích thước và vị trí cụ thể */
 .skeleton-tag {
   width: 60px;
   height: 24px;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+}
+
+.skeleton-time {
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  border-radius: 15px;
 }
 
 .skeleton-title {
   width: 80%;
   height: 28px;
-  border-radius: 4px;
   margin-bottom: 10px;
 }
 
 .skeleton-desc {
   width: 100%;
   height: 60px;
-  border-radius: 4px;
 }
 
-/* Shimmer animation cho từng phần */
+/* Animation shimmer */
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
 .skeleton-cover::after,
 .skeleton-tag::after,
 .skeleton-title::after,
-.skeleton-desc::after {
+.skeleton-desc::after,
+.skeleton-time::after {
   content: '';
   position: absolute;
   top: 0;
   left: -150%;
   width: 150%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  background: linear-gradient(90deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 75%);
   animation: shimmer 1.5s infinite;
 }
 
-/* Điều chỉnh thời gian và tốc độ của animation */
-@keyframes shimmer {
-  100% {
-    left: 100%;
+/* Responsive design */
+@media (max-width: 768px) {
+  .skeleton-time {
+    width: 80px;
+    height: 18px;
+    bottom: 8px;
+    right: 10px;
+  }
+
+  .skeleton-tag {
+    left: 10px;
+    bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skeleton-time {
+    width: 70px;
+    height: 16px;
+    bottom: 6px;
+    right: 8px;
+  }
+
+  .skeleton-tag {
+    left: 8px;
+    bottom: 6px;
+  }
+
+  .skeleton-cover {
+    height: 180px;
+  }
+
+  .skeleton-body {
+    padding: 12px;
   }
 }

@@ -4,18 +4,20 @@ async function fetchData() {
   try {
     // Hiển thị skeleton khi bắt đầu tải
     document.querySelector(".card__container").innerHTML = `
-      <div class="card-skeleton">
-        <div class="skeleton-cover"></div>
-        <div class="skeleton-body">
-          <div class="skeleton-tag"></div>
-          <div class="skeleton-title"></div>
-          <div class="skeleton-desc"></div>
-        </div>
-      </div>
+          <div class="card-skeleton">
+            <div class="skeleton-cover">
+              <div class="skeleton-tag"></div>
+              <div class="skeleton-time"></div>
+            </div>
+            <div class="skeleton-body">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-desc"></div>
+            </div>
+          </div>
     `.repeat(6); // Hiển thị 6 skeletons
 
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbxtUVsCEU4lhztURkD6dz_1ZKo7WErhgUTYgHiAFFn5zDOkJkSsytDKpKHFCVo4BLGkNg/exec"
+      "https://script.google.com/macros/s/AKfycbzIRUAyiqr7OUIke0coIx7GOIduUMGQynU31HR-JJjIBDQzAg6jq_h3zgBncrvlpr_vaA/exec"
     );
 
     if (!response.ok) throw new Error("Lỗi khi gọi API!");
@@ -65,6 +67,7 @@ function createCard(card) {
     <div class="card">
       <div class="card__cover" style="background-image: url('${card.image}')">
         <div class="card__tag">${card.tag}</div>
+        ${card.time ? `<div class="card__time">${card.time}</div>` : ""}
       </div>
       <div class="card__body">
         <div class="card__title">${card.title}</div>
