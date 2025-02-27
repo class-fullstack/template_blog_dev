@@ -28,7 +28,7 @@ async function fetchData(isFirstLoad = false) {
     }
 
     const response = await fetch(
-      `https://script.google.com/macros/s/AKfycbyOZfpG4Hh4MPMJxlj5g8W1TigiSe0wxnyhQOO6VB-vxKLFYzV3BRLSJeCAz8reREbS_w/exec?start=${start}&limit=${limit}`
+      `https://script.google.com/macros/s/AKfycbwZLRf_T2XAOnw9yMBltKZk0smbVWP--4ZGtpVfEE5H7eyiBCBNrhXyddlkBtt333Vwsg/exec?start=${start}&limit=${limit}`
     );
 
     if (!response.ok) throw new Error("Lỗi khi gọi API!");
