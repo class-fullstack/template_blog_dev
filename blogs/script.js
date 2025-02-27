@@ -22,7 +22,7 @@ async function fetchData(isFirstLoad = false) {
         .querySelector(".card__container")
         .insertAdjacentHTML("beforeend", generateSkeletons(loadMore));
     } else {
-      // Lần đầu vào trang hiển thị 6 skeletons
+      // First time, show 6 skeletons
       document.querySelector(".card__container").innerHTML =
         generateSkeletons(limit);
     }
@@ -35,7 +35,7 @@ async function fetchData(isFirstLoad = false) {
 
     let responseData = await response.json();
 
-    // Xóa skeleton sau khi dữ liệu tải xong
+    // Delete skelton after loading
     document
       .querySelectorAll(".skeleton-card")
       .forEach((skeleton) => skeleton.remove());
@@ -44,20 +44,25 @@ async function fetchData(isFirstLoad = false) {
       throw new Error("Dữ liệu không hợp lệ!");
     }
 
-    // Cập nhật dữ liệu
+    // Update data
     cardData = [...cardData, ...responseData.data];
     renderCards();
 
     start += limit;
 
+    // Modify your existing code
     if (!responseData.nextStart) {
       hasMore = false;
-      document
-        .querySelector(".card__container")
-        .insertAdjacentHTML(
-          "beforeend",
-          `<p class="end-message">Hết dữ liệu!</p>`
-        );
+      const container = document.querySelector(".card__container");
+      container.insertAdjacentHTML(
+        "beforeend",
+        `<img class="end-message" src="https://animal-crossing.com/assets/img/characters/CTRP_EAA_NPC-flg11_1_R_ad.png" alt="End of content">`
+      );
+
+      const endMessage = container.lastElementChild;
+      endMessage.addEventListener("animationend", () => {
+        endMessage.remove();
+      });
     }
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu:", error);
@@ -68,7 +73,7 @@ async function fetchData(isFirstLoad = false) {
   }
 }
 
-// Tạo skeleton loading
+// Create skeleton loading
 function generateSkeletons(count) {
   return Array(count)
     .fill("")
@@ -100,7 +105,7 @@ function renderCards() {
 
   container.innerHTML = cardData.map(createCard).join("");
 
-  // Gán sự kiện click cho từng card
+  // Assign click event for each card
   document.querySelectorAll(".card").forEach((card, index) => {
     card.addEventListener("click", () => {
       localStorage.setItem("cardData", JSON.stringify(cardData));
@@ -109,7 +114,7 @@ function renderCards() {
   });
 }
 
-// Tạo card HTML
+// Create card HTML
 function createCard(card) {
   return `
     <div class="card">
@@ -125,7 +130,7 @@ function createCard(card) {
   `;
 }
 
-// Lắng nghe sự kiện cuộn trang
+// Listen scroll event
 window.addEventListener("scroll", () => {
   if (
     window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
@@ -135,5 +140,5 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Gọi API lần đầu
+// Call API for the first time
 fetchData(true);
