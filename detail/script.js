@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let content = [];
     let postTime = "";
 
+    console.log(postTime);
+
     lines.forEach((line) => {
       if (line.startsWith("**Time:**")) {
         postTime = line.replace("**Time:**", "").trim();
