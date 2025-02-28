@@ -19,6 +19,7 @@ Dự án blog công nghệ tập trung vào việc cung cấp các bài viết c
 - Hướng dẫn kỹ thuật
 - Đánh giá công nghệ mới
 - Tối ưu hóa hệ thống
+=> Mục tiêu phục vụ lớp học và mọi người muốn đọc học thêm kiến thức.
 
 ## 🎯 Tính năng nổi bật
 
