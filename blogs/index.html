@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <div class="search-container">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Tìm kiếm bài viết..."
+        />
+        <div class="search-icon">🔍</div>
+      </div>
+      <select id="tagFilter" class="tag-filter">
+        <option value="">Tất cả chủ đề</option>
+        <option value="fe">Frontend</option>
+        <option value="be">Backend</option>
+        <option value="ai">AI</option>
+        <option value="ml">Machine Learning</option>
+        <option value="social">Social</option>
+      </select>
+    </div>
     <div class="card__container"></div>
     <img
       id="huck"

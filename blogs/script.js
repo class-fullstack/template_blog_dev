@@ -4,6 +4,46 @@ let limit = 6;
 let loadMore = 3;
 let isLoading = false;
 let hasMore = true;
+let currentSearch = "";
+let currentTag = "";
+
+// Thêm hàm debounce
+const debounce = (func, delay = 500) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+};
+
+// Xử lý sự kiện search
+document.getElementById("searchInput").addEventListener(
+  "input",
+  debounce((e) => {
+    currentSearch = e.target.value.trim().toLowerCase();
+    resetAndFetch();
+  })
+);
+
+// Xử lý thay đổi tag
+document.getElementById("tagFilter").addEventListener("change", (e) => {
+  currentTag = e.target.value;
+  resetAndFetch();
+});
+
+function resetData() {
+  cardData = [];
+  start = 0;
+  hasMore = true;
+  document.querySelector(".card__container").innerHTML = "";
+}
+
+// Hàm fetch mới
+async function resetAndFetch() {
+  resetData();
+
+  await fetchData(true);
+}
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -27,9 +67,15 @@ async function fetchData(isFirstLoad = false) {
         generateSkeletons(limit);
     }
 
-    const response = await fetch(
-      `https://script.google.com/macros/s/AKfycbwZLRf_T2XAOnw9yMBltKZk0smbVWP--4ZGtpVfEE5H7eyiBCBNrhXyddlkBtt333Vwsg/exec?start=${start}&limit=${limit}`
+    const apiUrl = new URL(
+      "https://script.google.com/macros/s/AKfycbwR5TGFAkRrG2d8g5n0UH93XL-HPZ5YWYxNK4HUdJyyybdMD9lQeRg0Z8Rn6Y9l9eayBg/exec"
     );
+    apiUrl.searchParams.set("start", start);
+    apiUrl.searchParams.set("limit", limit);
+    if (currentSearch) apiUrl.searchParams.set("search", currentSearch);
+    if (currentTag) apiUrl.searchParams.set("tag", currentTag);
+
+    const response = await fetch(apiUrl);
 
     if (!response.ok) throw new Error("Lỗi khi gọi API!");
 
@@ -66,8 +112,13 @@ async function fetchData(isFirstLoad = false) {
     }
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu:", error);
-    document.querySelector(".card__container").innerHTML =
-      "<p style='color: red;'>Không thể tải dữ liệu. Vui lòng thử lại sau.</p>";
+    document.querySelector(".card__container").innerHTML = `
+    <div class="error-message">
+    <p>Không thể tải dữ liệu. Vui lòng thử lại sau!</p>
+    <button class="error-retry-btn" onclick="resetAndFetch()">
+      Thử lại ngay
+    </button>
+  </div>`;
   } finally {
     isLoading = false;
   }
@@ -99,7 +150,12 @@ function renderCards() {
   const container = document.querySelector(".card__container");
 
   if (cardData.length === 0) {
-    container.innerHTML = "<p>Không có dữ liệu để hiển thị.</p>";
+    container.innerHTML = `<div class="error-message">
+    <p>Không thể tải dữ liệu. Vui lòng thử lại sau!</p>
+    <button class="error-retry-btn" onclick="resetAndFetch()">
+      Thử lại ngay
+    </button>
+  </div>`;
     return;
   }
 

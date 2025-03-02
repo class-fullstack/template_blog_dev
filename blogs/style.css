@@ -133,6 +133,192 @@ body {
   bottom: 0;
 }
 
+
+.search-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  position: relative;
+  min-width: 300px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 20px;
+  border: 2px solid #dd7f20;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+#searchInput:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(221, 127, 32, 0.3);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.tag-filter {
+  padding: 12px 20px;
+  border: 2px solid #dd7f20;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dd7f20' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+/* Thêm vào file CSS */
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(213, 0, 0, 0.15);
+  border: 2px solid #ff1744;
+  text-align: center;
+  max-width: 80%;
+  animation: errorEntrance 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  backdrop-filter: blur(4px);
+}
+
+.error-message::before {
+  content: '⚠️';
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.error-message p {
+  color: #d32f2f !important;
+  font-size: 1.2rem;
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.error-retry-btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  background: linear-gradient(45deg, #ff5252, #d32f2f);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(211, 47, 47, 0.2);
+}
+
+.error-retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(211, 47, 47, 0.3);
+}
+
+@keyframes errorEntrance {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Thêm hiệu ứng động */
+.error-message:hover {
+  animation: gentleShake 0.4s ease-in-out;
+}
+
+.error-message:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%,
+      rgba(255, 82, 82, 0.2) 0%,
+      transparent 70%);
+  animation: particlePulse 1s infinite;
+}
+
+
+@keyframes gentleShake {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) rotate(2deg);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(-2deg);
+  }
+
+  75% {
+    transform: translate(-50%, -50%) rotate(1deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .error-message {
+    padding: 1.5rem;
+    width: 90%;
+  }
+
+  .error-message::before {
+    font-size: 2.5rem;
+  }
+
+  .error-message p {
+    font-size: 1rem;
+  }
+
+  .error-retry-btn {
+    padding: 0.6rem 1.5rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+
+  .tag-filter {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .card__container {
     grid-template-columns: repeat(2, 1fr);
