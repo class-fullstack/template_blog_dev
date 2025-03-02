@@ -362,3 +362,46 @@ body {
     padding: 12px;
   }
 }
+
+/* Add to CSS */
+.end-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff6b6b;
+  z-index: 1000;
+  pointer-events: none;
+  animation: jumpAndDisappear 2s ease-out forwards;
+}
+
+@keyframes jumpAndDisappear {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) rotateZ(0deg);
+  }
+
+  20% {
+    transform: translate(-50%, -50%) translateY(-40px) rotateZ(15deg);
+  }
+
+  40% {
+    transform: translate(-50%, -50%) translateY(0) rotateZ(-15deg);
+  }
+
+  60% {
+    transform: translate(-50%, -50%) translateY(-30px) rotateZ(10deg);
+  }
+
+  80% {
+    transform: translate(-50%, -50%) translateY(0) rotateZ(-10deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(0) rotateZ(0deg);
+  }
+}

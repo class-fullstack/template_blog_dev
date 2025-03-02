@@ -1,6 +1,18 @@
 let cardData = [];
+let start = 0;
+let limit = 6;
+let loadMore = 3;
+let isLoading = false;
+let hasMore = true;
 
-async function fetchData() {
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Load Data for API
+async function fetchData(isFirstLoad = false) {
+  if (isLoading || !hasMore) return;
+
   try {
     // Show skeleton when start fetching
     document.querySelector(".card__container").innerHTML = `
