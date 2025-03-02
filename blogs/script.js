@@ -2,7 +2,7 @@ let cardData = [];
 
 async function fetchData() {
   try {
-    // Hiển thị skeleton khi bắt đầu tải
+    // Show skeleton when start fetching
     document.querySelector(".card__container").innerHTML = `
           <div class="card-skeleton">
             <div class="skeleton-cover">
@@ -14,7 +14,7 @@ async function fetchData() {
               <div class="skeleton-desc"></div>
             </div>
           </div>
-    `.repeat(6); // Hiển thị 6 skeletons
+    `.repeat(6); // Show 6 skeleton cards
 
     const response = await fetch(
       "https://script.google.com/macros/s/AKfycbzIRUAyiqr7OUIke0coIx7GOIduUMGQynU31HR-JJjIBDQzAg6jq_h3zgBncrvlpr_vaA/exec"
@@ -30,7 +30,7 @@ async function fetchData() {
 
     console.log("Dữ liệu nhận được:", cardData);
 
-    // Sau khi tải xong, cập nhật giao diện
+    // After fetching data, render cards
     renderCards();
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu:", error);
@@ -39,20 +39,20 @@ async function fetchData() {
   }
 }
 
-// Hàm render card sau khi tải xong
+// Func called after fetching data
 function renderCards() {
   const container = document.querySelector(".card__container");
 
-  // Nếu không có dữ liệu thì báo lỗi
+  // If not data, show error
   if (cardData.length === 0) {
     container.innerHTML = "<p>Không có dữ liệu để hiển thị.</p>";
     return;
   }
 
-  // Xóa skeleton và hiển thị nội dung thực
+  // Delete skeleton and show real content
   container.innerHTML = cardData.map(createCard).join("");
 
-  // Gán sự kiện click cho từng thẻ
+  // Assign click event for each card
   document.querySelectorAll(".card").forEach((card, index) => {
     card.addEventListener("click", () => {
       localStorage.setItem("cardData", JSON.stringify(cardData));
@@ -61,7 +61,7 @@ function renderCards() {
   });
 }
 
-// Hàm tạo card HTML
+// Func create card HTML
 function createCard(card) {
   return `
     <div class="card">
@@ -77,5 +77,5 @@ function createCard(card) {
   `;
 }
 
-// Gọi API khi trang load
+// Call API when page loaded
 fetchData();
